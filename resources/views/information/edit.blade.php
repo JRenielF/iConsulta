@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Information</title>
+</head>
+<body>
+    <h1>Edit Information</h1>
+
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form method="post" action="{{ route('information.update', $information->id) }}">
+        @csrf
+        @method('put')
+
+        <div>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ $information->first_name }}" required>
+        </div>
+
+        <div>
+            <label for="middle_name">Middle Name:</label>
+            <input type="text" id="middle_name" name="middle_name" value="{{ $information->middle_name }}">
+        </div>
+
+        <div>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ $information->last_name }}" required>
+        </div>
+
+        <div>
+            <label for="suffix">Suffix:</label>
+            <input type="text" id="suffix" name="suffix" value="{{ $information->suffix }}">
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ $information->email }}" required>
+        </div>
+
+        <div>
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="{{ $information->phone }}">
+        </div>
+
+        <div>
+            <label for="service">Service:</label>
+            <select id="service" name="service" required>
+                <option value="STUDY" {{ $information->service === 'STUDY' ? 'selected' : '' }}>Study</option>
+                <option value="WORK" {{ $information->service === 'WORK' ? 'selected' : '' }}>Work</option>
+                <option value="LIVE" {{ $information->service === 'LIVE' ? 'selected' : '' }}>Live</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Edit</button>
+        </div>
+    </form>
+</body>
+</html>
