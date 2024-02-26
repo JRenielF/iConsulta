@@ -16,6 +16,9 @@
     </div>
         @endif
     </div>
+    <div>
+        <a href="{{ route('information.create') }}">Add</a>
+    </div>
     <div><table border='1'>
         <tr>
         <th>First Name</th>

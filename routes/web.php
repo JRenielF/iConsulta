@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\InformationController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,21 @@ Route::post('/information', [InformationController::class, 'store'])->name('info
 Route::get('/information/{information}/edit', [InformationController::class, 'edit'])->name('information.edit');
 Route::put('/information/{information}', [InformationController::class, 'update'])->name('information.update');
 Route::delete('/information/{information}', [InformationController::class, 'destroy'])->name('information.destroy');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/information', [InformationController::class, 'index'])->name('information.index');
+Route::get('/information/create', [InformationController::class, 'create'])->name('information.create');
+Route::post('/information', [InformationController::class, 'store'])->name('information.store');
+Route::get('/information/{information}/edit', [InformationController::class, 'edit'])->name('information.edit');
+Route::put('/information/{information}', [InformationController::class, 'update'])->name('information.update');
+Route::delete('/information/{information}', [InformationController::class, 'destroy'])->name('information.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
